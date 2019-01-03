@@ -1,9 +1,12 @@
 package com.company;
 
+import java.util.Random;
+
 /**
  * Created by bb222 on 12/17/18.
  */
 public class TicTacPrint {
+    static Random rd = new Random();
     public TicTacPrint(){
 
     }
@@ -65,7 +68,7 @@ public class TicTacPrint {
 
     public static int[] firstComputerMove(String[][] c) {
         //Computer prioritizes first move in top left, if its taken it will go middle
-        if (c[0][0].equals("[X]") && c[1][1].equals("[5]")){
+        if ((c[0][0].equals("[X]") || c[2][0].equals("[X]") || c[0][2].equals("[X]") || c[2][2].equals("[X]")) && c[1][1].equals("[5]")){
             boardPos[0] = 1;
             boardPos[1] = 1;
         }
@@ -75,9 +78,22 @@ public class TicTacPrint {
         }
         return boardPos;
     }
-    static int horizCount = 0;
+    static int x = 0;
+    static int y = 0;
+    static int testCount = 0;
     public static int[] computerMove(String[][] c){
+        while(true){
+            testCount++;
+            y = rd.nextInt(3);
+            x = rd.nextInt(3);
 
+            if (!((c[x][y].equals("[X]")) || (c[x][y].equals("[O]")))){
+                boardPos[0] = x;
+                boardPos[1] = y;
+                break;
+            }
+
+        }
 
 
 
@@ -85,13 +101,80 @@ public class TicTacPrint {
         return boardPos;
     }
 
+    static int xCount = 0;
+    static int oCount = 0;
+    static int turnCount = 0;
+    public static String checkWin(String[][] d){
+        turnCount++;
+        xCount = 0;
+        for (int i = 0; i < 9; i++) { //Check horizontal wins
+            if (i % 3 == 0){
+                xCount = 0;
+            }
+            if (d[i/3][i%3].equals("[X]")){
+                xCount++;
 
-  /*  public static String checkWin(String[][] d){
-        for (int i = 0; i < ; i++) {
-            
+
+                if (xCount == 3){
+                    return "xWin";
+                }
+            }
         }
-        else {
-            return "no";
+        xCount = 0;
+        for (int i = 0; i < 9; i++) { //Check vertical wins
+            if (i % 3 == 0){
+                xCount = 0;
+            }
+            if (d[i%3][i/3].equals("[X]")){
+                xCount++;
+
+
+                if (xCount == 3){
+                    return "xWin";
+                }
+            }
         }
-    }*/
+        if (d[0][0].equals("[X]") && d[1][1].equals("[X]") && d[2][2].equals("[X]") || d[2][0].equals("[X]") && d[1][1].equals("[X]") && d[0][2].equals("[X]")){ //Check diagonal wins
+            return "xWin";
+        }
+
+        /////////////////// O COMPUTER PART
+        oCount = 0;
+        for (int i = 0; i < 9; i++) { //Check horizontal wins
+            if (i % 3 == 0){
+                oCount = 0;
+            }
+            if (d[i/3][i%3].equals("[O]")){
+                oCount++;
+
+
+                if (oCount == 3){
+                    return "oWin";
+                }
+            }
+        }
+        oCount = 0;
+        for (int i = 0; i < 9; i++) { //Check vertical wins
+            if (i % 3 == 0){
+                oCount = 0;
+            }
+            if (d[i%3][i/3].equals("[O]")){
+                oCount++;
+
+
+                if (oCount == 3){
+                    return "oWin";
+                }
+            }
+        }
+        if (d[0][0].equals("[O]") && d[1][1].equals("[O]") && d[2][2].equals("[O]") || d[2][0].equals("[O]") && d[1][1].equals("[O]") && d[0][2].equals("[O]")){ //Check diagonal wins
+            return "oWin";
+        }
+        ////////////if tie
+       // if (turnCount == 9){
+        //    return "tie";
+       // }
+
+        return "undecided";
+    }
 }

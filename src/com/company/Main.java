@@ -31,7 +31,7 @@ public class Main {
             //Computer Turn
             System.out.println(TicTacPrint.printBoard(board));
             System.out.println("Waiting for computer...");
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             if (turnCount == 1){
                 boardPos = TicTacPrint.firstComputerMove(board);
             }
@@ -55,6 +55,9 @@ public class Main {
         System.out.println();
 
         while (gameEnd == 0) {
+
+
+
             turnCount++;
             cheatDetected = false;
             while(!cheatDetected) {
@@ -73,13 +76,27 @@ public class Main {
                     break;
                 }
             }
-
+            if (TicTacPrint.checkWin(board).equals("oWin")){
+                System.out.println(TicTacPrint.printBoard(board));
+                System.out.println("You lost!");
+                System.exit(0);
+            }
+            if (TicTacPrint.checkWin(board).equals("xWin")){
+                System.out.println(TicTacPrint.printBoard(board));
+                System.out.println("You won!");
+                System.exit(0);
+            }
+            if (turnCount == 5){
+                System.out.println(TicTacPrint.printBoard(board));
+                System.out.println("It's a tie!");
+                System.exit(0);
+            }
 
 
             //Computer Turn
             System.out.println(TicTacPrint.printBoard(board));
             System.out.println("Waiting for computer...");
-            Thread.sleep(3000); //computer is spending time in its complex algorithm :)
+            Thread.sleep(1000); //computer is spending time in its complex algorithm :)
             if (turnCount == 1){
                 boardPos = TicTacPrint.firstComputerMove(board);
             }
@@ -89,10 +106,26 @@ public class Main {
             row = boardPos[0];
             column = boardPos[1];
             board[row][column] = "[O]";
-            System.out.println("computer tried to place in " + row + " row, and " + column + " column.");
+           // System.out.println("computer tried to place in " + row + " row, and " + column + " column.");
 
 
-            System.out.println(TicTacPrint.checkWin(board));
+         //   System.out.println(TicTacPrint.checkWin(board));
+            if (TicTacPrint.checkWin(board).equals("oWin")){
+                System.out.println(TicTacPrint.printBoard(board));
+                System.out.println("You lost!");
+                System.exit(0);
+            }
+            if (TicTacPrint.checkWin(board).equals("xWin")){
+                System.out.println(TicTacPrint.printBoard(board));
+                System.out.println("You won!");
+                System.exit(0);
+            }
+            if (turnCount == 5){
+                System.out.println(TicTacPrint.printBoard(board));
+                System.out.println("It's a tie!");
+                System.exit(0);
+            }
+            System.out.println("TURNCOUNT " + turnCount);
         }
     }
 }
